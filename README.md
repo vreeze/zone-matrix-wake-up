@@ -2,12 +2,15 @@
 
 ![Demo](gifs/zone-matrix-wake-up-demo.gif)
 
-I can't believe it has been 20 years already since the release of the Matrix. So for the 20 year anniversary I created the famous wake up scene as a zone program for Emacs (an Emacs screen saver). (And In an attempt to wake up more people from the Matrix...)
+I can't believe it has been 20 years already since the release of The Matrix movie.
 
+So for the 20 year anniversary I created the famous wake up scene as a zone program for Emacs (an Emacs screen saver). (And In an attempt to wake up more people from The Matrix...)
+
+Link to scene on YouTube:
 [![Matrix wake up scene](http://img.youtube.com/vi/Smwrw4sNCxE/0.jpg)](http://www.youtube.com/watch?v=Smwrw4sNCxE)
 
 ## Install
-Save the file *zone-matrix-wak-up.el* to a directory and add it to you `load-path` in your emacs init file:
+Save the file *zone-matrix-wake-up.el* to a directory (e.g.: zone-matrix-wake-up)  and add it to you `load-path` in your emacs init file:
 
     (add-to-list 'load-path "~/.emacs.d/zone-matrix-wake-up")
 
