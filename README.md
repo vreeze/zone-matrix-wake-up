@@ -30,6 +30,12 @@ Specify after how many seconds of non-activiy to zone out:
     (zone-when-idle 120)
 ```
 
+Instead of Neo, you can use your own name for the wake message:
+``` emacs-lisp
+    (setq zone-matrix-wake-up-name "Pieter")
+```
+
+
 You can also run it as a preview directly by invoking:
 ``` emacs-lisp
     (zone-matrix-wake-up)

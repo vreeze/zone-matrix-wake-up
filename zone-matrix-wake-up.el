@@ -30,7 +30,6 @@
 ;; This is a zone/screen saver acting out the Matrix wake-up scene.
 
 ;;; Code:
-
 (require 'zone)
 
 (defgroup zone-matrix-wake-up nil
@@ -38,16 +37,10 @@
   :group 'zone
   :prefix "zone-matrix-wake-up-")
 
-(defvar zone-matrix-wake-up-msg ["Wake up, Neo..."
-                    "The Matrix has you..."
-                    "Follow the white rabbit."
-                    "Knock, knock, Neo."] "The wake-up messages.")
-                                            ;  W   a   k   e       u   p   ,       N   e   o   .   .    .
-(defvar zone-matrix-wake-up-msg-char-delay [[100 300 200 300 100 100 300 100 100 200 200 50 200 100 10000]
-                                            [400 300 200 400 400 150 300 200 100 100 100 200 100 300 300 100 200 200 200 200 6000]
-                                            [100 150 100 75 75 100 125 100 120 100 110 100 80 100 75 100 120 110 100 100 100 100 100 8000]
-                                            [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
-                                            ] "The delay values for each character in miliseconds.")
+(defcustom zone-matrix-wake-up-name "Neo"
+  "Insert your first name, to be woken up from The Matrix."
+  :type '(string)
+  :group 'zone-matrix-wake-up)
 
 (defface zone-matrix-wake-up-face
   '((t (:bold t :foreground "#1ec503")))
@@ -59,16 +52,20 @@
   "Zone out with the Matrix wake up scene."
   (delete-other-windows)
   (let ((msg-idx 0)
-        (msg-nr 0))
+        (msg-nr 0)
+        (msgs `[(,(concat "Wake up, " zone-matrix-wake-up-name "...")    ,(vconcat [100 300 200 300 100 100 300 100 50 200 100] (make-vector (length zone-matrix-wake-up-name) 200) [10000]))
+                ("The Matrix has you..."                                           [400 300 200 400 400 150 300 200 100 100 100 200 100 300 300 100 200 200 200 200 6000])
+                ("Follow the white rabbit."                                        [100 150 100 75 75 100 125 100 120 100 110 100 80 100 75 100 120 110 100 100 100 100 100 8000])
+                (,(concat "Knock, knock, " zone-matrix-wake-up-name ".") ,(vconcat [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0] (make-vector (length zone-matrix-wake-up-name) 0)))]))
     (sit-for 2)
-    (while (< msg-nr (length zone-matrix-wake-up-msg))
+    (while (< msg-nr (length msgs))
       (setq msg-idx 0)
       (erase-buffer)
-      (while (< msg-idx (length (elt zone-matrix-wake-up-msg msg-nr)))
-        (let ((s (string (elt (elt zone-matrix-wake-up-msg msg-nr) msg-idx))))
+      (while (< msg-idx (length (car (elt msgs msg-nr))))
+        (let ((s (string (elt (car (elt msgs msg-nr)) msg-idx))))
           (put-text-property 0 1 'face 'zone-matrix-wake-up-face s)
           (insert s))
-        (sit-for (/ (elt (elt zone-matrix-wake-up-msg-char-delay msg-nr) msg-idx) 1000.0))
+        (sit-for (/ (elt (cadr (elt msgs msg-nr)) msg-idx) 1000.0))
         (setq msg-idx (1+ msg-idx)))
       (setq msg-nr (1+ msg-nr))))
   (sit-for 60))
